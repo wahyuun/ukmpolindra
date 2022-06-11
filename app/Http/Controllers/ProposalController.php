@@ -37,6 +37,37 @@ class ProposalController extends Controller
         ]);
     }
 
+    public function swProposal()
+    {
+        $props= Proposal::all();
+        foreach ($props as $item) {
+            $data[]= [
+               $dataukm= $item->kegiatan->ukm_id
+            ];
+        }
+        $ukm = UKM::where('id',$dataukm)->get();
+        return response()->json($ukm);
+
+        echo implode($data);
+        return false;
+        // mengambil id UKM yang dipilih dari hasil request url
+        $req = UKM::firstWhere('slug',request('detail'));
+        $var = $req->id;
+        $vardKegiatan = Kegiatan::firstWhere('ukm_id',$var);
+        $varr = $vardKegiatan->id;
+        $proposal = Proposal::where('kegiatan_id',$varr)->get();
+        // ini wahyu
+            // dd($proposal);
+            // return false;
+            return view('dashboard.showProposal',[
+                'title' => 'Detail Proposal | ' . request('detail'),
+                'proposal' => $data,
+                'ukm'=>$req
+
+            ]);
+        }
+
+
     /**
     * Show the form for editing the specified resource.
     *

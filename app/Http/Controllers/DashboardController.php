@@ -20,38 +20,4 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function swKegiatan()
-    {
-        // validasi status UKM
-        $req = UKM::firstWhere('slug',request('detail'));
-        if (request('detail')) {
-            $varKegiatan = Kegiatan::where('ukm_id',$req->id)->with(['ukm'])->get();
-        }
-
-        return view('dashboard.showKegiatan',[
-            'title' => 'Detail Kegiatan | ' . request('detail'),
-            'activities' => $varKegiatan,
-            'ukm'=>$req
-
-        ]);
-    }
-    public function swProposal()
-    {
-        // ini masih PR
-        // mengambil id UKM yang dipilih dari hasil request url
-        $req = UKM::firstWhere('slug',request('detail'));
-        $var = $req->id;
-        $vardKegiatan = Kegiatan::firstWhere('ukm_id',$var);
-        $varr = $vardKegiatan->id;
-        $proposal = Proposal::where('kegiatan_id',$varr)->get();
-
-            // dd($proposal);
-            // return false;
-            return view('dashboard.showProposal',[
-                'title' => 'Detail Proposal | ' . request('detail'),
-                'proposal' => $data,
-                'ukm'=>$req
-
-            ]);
-        }
-    }
+}

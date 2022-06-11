@@ -54,10 +54,7 @@ Route::get('/profile',[ProfileController::class,'index'])->middleware(['auth','v
 
 // index.php Dashboard
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth','verified'])->name('dashboard');
-Route::get('/dashboard/showKegiatan',[DashboardController::class,'swKegiatan'])->middleware(['auth','verified'])->name('dashboard-swKegiatan');
-Route::get('/dashboard/showProposal',[DashboardController::class,'swProposal'])->middleware(['auth','verified'])->name('dashboard-swProposal');
-Route::get('/dashboard/showLogbook',[DashboardController::class,'swLogbook'])->middleware(['auth','verified'])->name('dashboard-swLogbook');
-Route::get('/dashboard/showLaporan',[DashboardController::class,'swLaporan'])->middleware(['auth','verified'])->name('dashboard-swLaporan');
+
 
 Route::resource('/dashboard/ukm',UKMController::class)->middleware('auth');
 Route::get('/ukm/aktif',[UKMController::class,'updateAktif'])->middleware('auth')->name('ukm-aktif');
@@ -77,6 +74,7 @@ Route::get('/act-komentar',[KegiatanController::class,'komentar'])->middleware('
 Route::get('/act-editKomentar/{Komentar:slug}',[KegiatanController::class,'edit'])->middleware('auth')->name('act-editKomentar');
 Route::put('/act-updateKomentar/{kegiatan}',[KegiatanController::class,'update'])->middleware('auth')->name('act-updateKomentar');
 Route::put('/act-deleteKomentar/{kegiatan}',[KegiatanController::class,'deleteKomentar'])->middleware('auth')->name('act-deleteKomentar');
+Route::get('/act-showKegiatan',[KegiatanController::class,'swKegiatan'])->middleware(['auth','verified'])->name('swKegiatan');
 // Ajax DataTables Kegiatan
 Route::get('/data-kegiatan',[KegiatanController::class,'data_kegiatan'])->middleware('auth')->name('data-kegiatan');
 
@@ -90,6 +88,7 @@ Route::get('/ac-komentar',[ProposalController::class,'komentar'])->middleware('a
 Route::get('/ac-editKomentar/{proposal}',[ProposalController::class,'edit'])->middleware('auth')->name('ac-editKomentar');
 Route::put('/ac-updateKomentar',[ProposalController::class,'update'])->middleware('auth')->name('ac-updateKomentar');
 Route::put('/ac-deleteKomentar/{id}',[ProposalController::class,'deleteKomentar'])->middleware('auth')->name('ac-deleteKomentar');
+Route::get('/ac-showProposal',[ProposalController::class,'swProposal'])->middleware(['auth','verified'])->name('swProposal');
 // Ajax DataTables proposal
 Route::get('/data-proposal',[ProposalController::class,'data_proposal'])->middleware('auth')->name('data-proposal');
 

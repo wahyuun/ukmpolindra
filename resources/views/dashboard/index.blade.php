@@ -293,13 +293,12 @@ aria-hidden="true">
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     @if($ukm->status != 0)
-                                                    <a href="{{ url('/dashboard/showKegiatan?detail='.$ukm->slug) }}" class="dropdown-item">Detail Kegiatan</a>
-                                                    <a href="{{ url('/dashboard/showProposal?detail='.$ukm->slug) }}" class="dropdown-item">Detail Proposal</a>
+                                                    <a href="{{ url('/act-showKegiatan?detail='.$ukm->slug) }}" class="dropdown-item">Detail Kegiatan</a>
+                                                    <a href="{{ url('/ac-showProposal?detail='.$ukm->slug) }}" class="dropdown-item">Detail Proposal</a>
                                                     <a href="#" class="dropdown-item">Detail Logbook</a>
                                                     <a href="#" class="dropdown-item">Detail Laporan</a>
                                                     <div class="dropdown-divider"></div>
                                                     @endif
-
                                                     @if($ukm->status != 0)
                                                     <a href="{{ url('/ukm/nonaktif?nonaktifukm='.$ukm->slug) }}" class="dropdown-item text-danger ukm-nonaktif-confirm">Nonakifkan</a>
                                                     @else
