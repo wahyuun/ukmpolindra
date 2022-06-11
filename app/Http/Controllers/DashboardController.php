@@ -37,6 +37,7 @@ class DashboardController extends Controller
     }
     public function swProposal()
     {
+        // ini masih PR
         // mengambil id UKM yang dipilih dari hasil request url
         $req = UKM::firstWhere('slug',request('detail'));
         $var = $req->id;
