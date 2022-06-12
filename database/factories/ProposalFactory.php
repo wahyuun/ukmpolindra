@@ -20,7 +20,8 @@ class ProposalFactory extends Factory
             'nama_proposal'=>$this->faker->sentence(3),
             'keterangan'=>$this->faker->paragraph(),
             'tgl_proposal'=>$this->faker->dateTime(),
-            'kegiatan_id'=>mt_rand(1,10)
+            'kegiatan_id'=>mt_rand(1,10),
+            'ukm_id'=>mt_rand(1,8)
         ];
     }
 }

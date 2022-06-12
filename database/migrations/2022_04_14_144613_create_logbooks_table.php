@@ -21,6 +21,7 @@ return new class extends Migration
             $table->mediumText('hasil');
             $table->mediumText('kendala');
             $table->foreignId('kegiatan_id');
+            $table->foreignId('ukm_id');
             $table->timestamps();
         });
     }

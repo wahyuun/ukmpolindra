@@ -27,27 +27,33 @@ class LaporanController extends Controller
         // cara mengembalikan id yg telah di hash
         $url_id = $this->Hashids->decode(request('detail'))[0];
         if (request('detail')) {
-            $laporan = Laporan::find($url_id);
+            $laporan = Laporan::with(['kegiatan','ukm'])->find($url_id);
         }
-        $varKegiatan = Kegiatan::find($laporan->kegiatan_id);
-        $varUKM = UKM::find($varKegiatan->ukm_id);
         return view('dashboard.laporan.show',[
-            'title'=> 'Proposal | Detail Laporan',
-            'ukm'=> $varUKM,
+            'title'=> 'Proposal | Detail ' . request('detail'),
             'laporan'=> $laporan
         ]);
     }
 
+    public function swLaporan()
+    {
+        $ukm = UKM::firstWhere('slug',request('detail'));
+        $ukmId=$ukm->id;
+        $laporan = Laporan::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
+        return view('dashboard.showLaporan',[
+        'title' => 'Detail Laporan | ' . request('detail'),
+        'laporan'=>$laporan
+        ]);
+    }
 
     public function data_laporan(){
         $activity = Laporan::select([
-            'laporans.id','laporans.tgl_laporan','laporans.file','laporans.nama_laporan','laporans.keterangan','laporans.kegiatan_id','laporans.created_at','laporans.updated_at'])->with(['kegiatan']);
+            'laporans.id','laporans.tgl_laporan','laporans.file','laporans.nama_laporan','laporans.keterangan','laporans.kegiatan_id','laporans.ukm_id','laporans.created_at','laporans.updated_at'])->with(['kegiatan','ukm']);
             return DataTables::of($activity)
             ->addColumn('action', function($data){
                 $url_show = url('/lp-detailLaporan?detail='.$data->id);
-                $varKegiatan = $data->kegiatan->ukm_id;
-                $varUKM = UKM::find($varKegiatan);
-                if ($varUKM->status != 0) {
+                $varUKM = $data->ukm->status;
+                if ($varUKM != 0) {
                     '<div class="dropdown">'.
                     $button = '<a class="text-muted">
                     <div class="col-auto">
@@ -91,11 +97,7 @@ class LaporanController extends Controller
                 $diubah = \Carbon\Carbon::parse($updated->created_at)->isoFormat('dddd, DD MMMM Y HH:mm:ss a');
                 return $diubah;
             })
-            ->addColumn('ukm',function($ukm){
-                $varKegiatan = $ukm->kegiatan->ukm_id;
-                $varUKM = UKM::find($varKegiatan);
-                return $varUKM->nama_ukm;
-            })// edit kolom file
+            // edit kolom file
             ->editColumn('file',function($file){
                 return $file->file === NULL ? '<small class="text-muted fst-italic">Data kosong</small>' : '<p class="text-muted fst-italic">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description" width="24"    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"  stroke-linejoin="round">

@@ -11,9 +11,6 @@ class UKM extends Model
     use HasFactory,Sluggable;
     protected $guarded = ['id'];
 
-    public function kegiatan(){
-        return $this->hasMany(Kegiatan::class);
-    }
     public function sluggable(): array
     {
         return [

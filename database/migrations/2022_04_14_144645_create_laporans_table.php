@@ -20,6 +20,7 @@ return new class extends Migration
             $table->mediumText('keterangan');
             $table->string('file')->nullable();
             $table->foreignId('kegiatan_id');
+            $table->foreignId('ukm_id');
             $table->timestamps();
         });
     }

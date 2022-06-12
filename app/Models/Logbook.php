@@ -13,7 +13,11 @@ class Logbook extends Model
 
 
     public function kegiatan(){
-        return $this->belongsTo(Kegiatan::class); //1 log book(1 baris dalam database) hanya memiliki 1 kegiatan
+        return $this->belongsTo(Kegiatan::class,'kegiatan_id'); //1 log book(1 baris dalam database) hanya memiliki 1 kegiatan
+    }
+
+    public function ukm(){
+        return $this->belongsTo(UKM::class,'ukm_id'); //1 log book(1 baris dalam database) hanya memiliki 1 ukm
     }
 
     public function getIdAttribute(){

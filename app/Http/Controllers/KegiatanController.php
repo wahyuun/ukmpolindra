@@ -52,13 +52,11 @@ class KegiatanController extends Controller
     */
     public function show()
     {
-        $title='';
         if (request('selengkapnya')) {
-            $kegiatan = Kegiatan::firstWhere('slug',request('selengkapnya'));
-            $title = request('selengkapnya');
+            $kegiatan = Kegiatan::with(['ukm'])->firstWhere('slug',request('selengkapnya'));
         }
         return view('dashboard.act_ukm.show',[
-            'title'=> 'Kegiatan | '.$title,
+            'title'=> 'Kegiatan | '.request('selengkapnya'),
             'kegiatan'=>$kegiatan
         ]);
     }
@@ -67,8 +65,9 @@ class KegiatanController extends Controller
     {
         // validasi status UKM
         $req = UKM::firstWhere('slug',request('detail'));
+        $varId = $req->id;
         if (request('detail')) {
-            $varKegiatan = Kegiatan::where('ukm_id',$req->id)->with(['ukm'])->get();
+            $varKegiatan = Kegiatan::with(['ukm'])->where('ukm_id',$varId)->get();
         }
 
         return view('dashboard.showKegiatan',[
@@ -205,7 +204,6 @@ class KegiatanController extends Controller
                             data-bs-toggle="tooltip"
                             data-bs-placement="bottom">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-report" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <desc>Download more icon variants from https://tabler-icons.io/i/message-report</desc>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
                             <line x1="12" y1="8" x2="12" y2="11"></line>
@@ -218,7 +216,6 @@ class KegiatanController extends Controller
                             <span title="Komentar terkunci"
                             data-bs-toggle="tooltip"
                             data-bs-placement="bottom" class="text-danger"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <desc>Download more icon variants from https://tabler-icons.io/i/lock</desc>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <rect x="5" y="11" width="14" height="10" rx="2"></rect>
                             <circle cx="12" cy="16" r="1"></circle>

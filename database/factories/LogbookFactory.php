@@ -22,7 +22,8 @@ class LogbookFactory extends Factory
             'hasil'=>$this->faker->paragraph(2),
             'kendala'=>$this->faker->paragraph(2),
             'tgl_logbook'=>$this->faker->dateTime(),
-            'kegiatan_id'=>mt_rand(1,10)
+            'kegiatan_id'=>mt_rand(1,10),
+            'ukm_id'=>mt_rand(1,8)
         ];
     }
 }

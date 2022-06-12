@@ -27,20 +27,28 @@ class LogbookController extends Controller
         // cara mengembalikan id yg telah di hash
         $url_id = $this->Hashids->decode(request('detail'))[0];
         if (request('detail')) {
-            $logbook = Logbook::find($url_id);
+            $logbook = Logbook::with(['ukm','kegiatan'])->find($url_id);
         }
-        $varKegiatan = Kegiatan::find($logbook->kegiatan_id);
-        $varUKM = UKM::find($varKegiatan->ukm_id);
         return view('dashboard.logbook.show',[
             'title'=> 'Proposal | Detail Logbook',
-            'ukm'=>$varUKM,
             'logbook'=>$logbook
+        ]);
+    }
+
+    public function swLogbook()
+    {
+        $ukm = UKM::firstWhere('slug',request('detail'));
+        $ukmId=$ukm->id;
+        $logbook = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
+        return view('dashboard.showLogbook',[
+        'title' => 'Detail Logbook | ' . request('detail'),
+        'logbook'=>$logbook
         ]);
     }
 
     public function data_logbook(){
         $activity = Logbook::select([
-            'logbooks.id','logbooks.tgl_logbook','logbooks.uraian','logbooks.progress','logbooks.hasil','logbooks.kegiatan_id','logbooks.kendala','logbooks.created_at','logbooks.updated_at'])->with(['kegiatan']);
+            'logbooks.id','logbooks.tgl_logbook','logbooks.uraian','logbooks.progress','logbooks.hasil','logbooks.kegiatan_id','logbooks.kendala','logbooks.created_at','logbooks.ukm_id','logbooks.updated_at'])->with(['kegiatan','ukm']);
             return DataTables::of($activity)
             // edit kolom status
             ->editColumn('progress',function($progress){
@@ -55,11 +63,8 @@ class LogbookController extends Controller
             })
             ->addColumn('action', function($data){
                 $url_show = url('/lg-detailLogbook?detail='.$data->id);
-                // cara mengembalikan id yg telah di hash
-                // $url_show = $this->Hashids->decode($data->id)[0];
-                $varKegiatan = $data->kegiatan->ukm_id;
-                $varUKM = UKM::find($varKegiatan);
-                if ($varUKM->status != 0) {
+                $varUKM = $data->ukm->status;
+                if ($varUKM != 0) {
                     '<div class="dropdown">'.
                     $button = '<a class="text-muted">
                     <div class="col-auto">
@@ -82,7 +87,6 @@ class LogbookController extends Controller
                     $button = '<span class="text-danger" title="Akses terkunci"
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <desc>Download more icon variants from https://tabler-icons.io/i/lock</desc>
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <rect x="5" y="11" width="14" height="10" rx="2"></rect>
                     <circle cx="12" cy="16" r="1"></circle>
@@ -113,11 +117,6 @@ class LogbookController extends Controller
             ->editColumn('updated_at',function($updated){
                 $diubah = \Carbon\Carbon::parse($updated->created_at)->isoFormat('dddd, DD MMMM Y HH:mm:ss a');
                 return $diubah;
-            })
-            ->addColumn('ukm',function($ukm){
-                $varKegiatan = $ukm->kegiatan->ukm_id;
-                $varUKM = UKM::find($varKegiatan);
-                return $varUKM->nama_ukm;
             })
             ->rawColumns(['action','tgl_logbook','progress','ukm'])
             ->make(true);

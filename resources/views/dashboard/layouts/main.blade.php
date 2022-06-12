@@ -1314,7 +1314,7 @@
                 serverSide: true,
                 ajax: '{{ route('data-laporan') }}',
                 columns: [
-                { data: 'ukm', name: 'ukm' },
+                { data: 'ukm.nama_ukm', name: 'ukm.nama_ukm' },
                 { data: 'kegiatan.nama_kegiatan', name: 'kegiatan.nama_kegiatan' },
                 { data: 'nama_laporan', name: 'nama_laporan' },
                 { data: 'tgl_laporan', name: 'tgl_laporan' },
@@ -1342,7 +1342,7 @@
                 serverSide: true,
                 ajax: '{{ route('data-logbook') }}',
                 columns: [
-                { data: 'ukm', name: 'ukm' },
+                { data: 'ukm.nama_ukm', name: 'ukm.nama_ukm' },
                 { data: 'kegiatan.nama_kegiatan', name: 'kegiatan.nama_kegiatan' },
                 { data: 'uraian', name: 'uraian' },
                 { data: 'tgl_logbook', name: 'tgl_logbook' },
@@ -1392,7 +1392,7 @@
     </script>
     <script>
         $(document).ready( function () {
-            $('#myDashboardProposal').DataTable();
+            $('#myDashboardLogbook').DataTable();
         });
     </script>
     <script>
@@ -1421,7 +1421,7 @@
                 serverSide: true,
                 ajax: '{{ route('data-proposal') }}',
                 columns: [
-                { data: 'ukm', name: 'ukm' },
+                { data: 'ukm.nama_ukm', name: 'ukm.nama_ukm' },
                 { data: 'nama_proposal', name: 'nama_proposal' },
                 { data: 'kegiatan.nama_kegiatan', name: 'kegiatan.nama_kegiatan' },
                 { data: 'keterangan', name: 'keterangan' },
@@ -1435,7 +1435,6 @@
             });
         });
     </script>
-
     <script>
         $(document).ready( function () {
             $('#myVerification').DataTable({

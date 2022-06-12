@@ -134,7 +134,8 @@
                 @endif
             </h3>
             <p><small class="text-muted">
-                {{ $proposal->kegiatan->nama_kegiatan }}
+                <small class="d-block">{{ $proposal->kegiatan->nama_kegiatan }}</small>
+                {{ $proposal->ukm->nama_ukm }}
                 |
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-event" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

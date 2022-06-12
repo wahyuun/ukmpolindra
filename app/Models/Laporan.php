@@ -14,7 +14,11 @@ class Laporan extends Model
 
 
     public function kegiatan(){
-        return $this->belongsTo(Kegiatan::class); //1 Laporan hanya dimiliki oleh 1 kegiatan
+        return $this->belongsTo(Kegiatan::class,'kegiatan_id'); //1 Laporan hanya memiliki 1 kegiatan
+    }
+
+    public function ukm(){
+        return $this->belongsTo(UKM::class,'ukm_id'); //1 Laporan hanya memiliki 1 ukm
     }
 
     public function getIdAttribute(){

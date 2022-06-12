@@ -95,12 +95,14 @@ Route::get('/data-proposal',[ProposalController::class,'data_proposal'])->middle
 // Logbook
 Route::get('/log-book',[LogbookController::class,'index'])->middleware('auth')->name('logbook');
 Route::get('/lg-detailLogbook',[LogbookController::class,'show'])->middleware('auth')->name('lg-detailLogbook');
+Route::get('/lg-showLogbook',[LogbookController::class,'swLogbook'])->middleware(['auth','verified'])->name('swLogbook');
 // Ajax DataTables Logbook
 Route::get('/data-logbook',[LogbookController::class,'data_logbook'])->middleware('auth')->name('data-logbook');
 
 // Laporan
 Route::get('/laporan',[LaporanController::class,'index'])->middleware('auth')->name('laporan');
 Route::get('/lp-detailLaporan',[LaporanController::class,'show'])->middleware('auth')->name('lp-detailLaporan');
+Route::get('/lp-showLaporan',[LaporanController::class,'swLaporan'])->middleware(['auth','verified'])->name('swLaporan');
 // Ajax DataTables laporan
 Route::get('/data-laporan',[LaporanController::class,'data_laporan'])->middleware('auth')->name('data-laporan');
 

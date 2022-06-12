@@ -12,10 +12,10 @@ class Proposal extends Model
     protected $guarded = ['id'];
 
     public function kegiatan(){
-        return $this->belongsTo(Kegiatan::class,'kegiatan_id'); //1 proposal hanya dimiliki 1 UKM
+        return $this->belongsTo(Kegiatan::class,'kegiatan_id'); //1 proposal hanya dimiliki 1 Kegiatan
     }
-    public function user(){
-        return $this->belongsTo(User::class,'admin_user');
+    public function ukm(){
+        return $this->belongsTo(UKM::class,'ukm_id');
     }
 
     public function getIdAttribute(){
