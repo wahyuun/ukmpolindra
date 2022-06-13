@@ -12,15 +12,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AuthenticationLogController extends Controller
 {
-    // public function index()
-    // {
-    //     $items = DB::table('authentication_log ')->get();
-
-    //     return response()->json([
-    //         'data' => $items
-    //     ], 200);
-    // }
-
     public function index()
     {
         $users = AuthenticationLoggable::all()->sortDesc();

@@ -7,7 +7,7 @@
                 <div class="col">
                     <div class="mb-1">
                         <ol class="breadcrumb breadcrumb-alternate" aria-label="breadcrumbs">
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Profile {{ $user->name }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Profil <span class="fw-bold">{{ strtoupper($user->name) }}</span></a></li>
                         </ol>
                     </div>
                 </div>
@@ -55,37 +55,33 @@
                         <input value="{{ old('tlp',$user->tlp) }}" type="tel" name="tlp" class="form-control" data-mask="(+62) 000-0000-0000" data-mask-visible="true" placeholder="(+62) 0000-0000" autocomplete="off"/>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>Level</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="role" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            @if($user->role == 1)
+                            <option value="{{ $user->role }}" selected>Kemahasiswaan</option>
+                            @elseif($user->role == 2)
+                            <option value="{{ $user->role }}" selected>BAAK</option>
+                            @elseif($user->role == 3)
+                            <option value="{{ $user->role }}" selected>UKM</option>
+                            @endif
+
+                            <option value="1">Kemahasiswaan</option>
+                            <option value="2">BAAK</option>
+                            <option value="2">UKM</option>
                         </select>
                         <label for="floatingSelect">Level</label>
                     </div>
                     <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>Level</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="ukm_id" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            @foreach($ukms as $ukm)
+                                @if(old('ukm_id',$user->ukm_id) == $ukm->id)
+                                <option value="{{ $ukm->id }}" selected>{{ $ukm->nama_ukm }}</option>
+                                @else
+                                <option value="{{ $ukm->id }}">{{ $ukm->nama_ukm }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <label for="floatingSelect">Unit Kegiatan Mahasiswa</label>
                     </div>
-
-                    {{-- <span class="link-danger">* <small class="fst-italic"> (.PNG,.JPG,.JPEG) max:5mb</small>
-                    </span>
-                    <div class="input-icon mb-3">
-                        <span class="input-icon-addon">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-camera-selfie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"></path>
-                                <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
-                                <line x1="15" y1="11" x2="15.01" y2="11"></line>
-                                <line x1="9" y1="11" x2="9.01" y2="11"></line>
-                            </svg>
-                        </span>
-                    </div> --}}
                 </fieldset>
             </div>
         </div>

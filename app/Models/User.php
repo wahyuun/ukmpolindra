@@ -45,10 +45,4 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ukm(){
         return $this->belongsTo(UKM::class,'ukm_id'); //1 User hanya memiliki 1 UKM
     }
-
-    public function getIdAttribute(){
-        $hashids = new \Hashids\Hashids( env('MY_SECRET_SALT_KEY','MySecretSalt') );
-
-        return $hashids->encode($this->attributes['id']);
-    }
 }

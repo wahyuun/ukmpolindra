@@ -114,9 +114,6 @@ Route::get('/log-activity',[AuthenticationLogController::class,'index'])->middle
 Route::get('/data-verification',[AuthenticationLogController::class,'data_verification'])->middleware(['auth','verified'])->name('data-verification');
 
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::prefix('admin')->middleware(['auth', 'verified', 'role:1'])->group(function () {
 
     Route::get('/users/verification', [App\Http\Controllers\UserVerificationController::class, 'index'])->name('users.verification');
