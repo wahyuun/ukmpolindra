@@ -153,7 +153,8 @@ class ProposalController extends Controller
         $proposal = Proposal::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
         return view('dashboard.showProposal',[
         'title' => 'Detail Proposal | ' . request('detail'),
-        'proposal'=>$proposal
+        'proposal'=>$proposal,
+        'ukm'=>$ukm
         ]);
     }
 

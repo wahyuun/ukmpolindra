@@ -50,7 +50,6 @@
         data-bs-toggle="tooltip"
         data-bs-placement="bottom"
         >
-        <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
         <svg
         xmlns="http://www.w3.org/2000/svg"
         class="icon"
@@ -202,7 +201,7 @@ d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12
 class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
 >
 <a href="{{ route('/') }}" class="dropdown-item">Homepage</a>
-<a href="{{ route('profile') }}" class="{{ Request::is('profile') ? 'active' : '' }} dropdown-item">Profile & Account</a>
+<a href="{{ route('profile') }}" class="{{ Request::is('profile') || Request::is('profile/all-user') || Request::is('profile/show') ? 'active' : '' }} dropdown-item">Profile & Account</a>
 <a href="{{ route('log-activity') }}" class="{{ Request::is('log-activity') ? 'active' : '' }} dropdown-item">Log Aktivitas</a>
 <div class="dropdown-divider"></div>
 <form method="POST" action="{{ route('logout') }}">
@@ -223,7 +222,7 @@ class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
         <div class="navbar navbar-light">
             <div class="container-xl">
                 <ul class="navbar-nav">
-                    <li class="nav-item {{ Request::is('dashboard') || Request::is('ukm') || Request::is('dashboard/showKegiatan') ? 'active' : '' }}">
+                    <li class="nav-item {{ Request::is('dashboard') || Request::is('ukm') || Request::is('act-showKegiatan') || Request::is('ac-showProposal') || Request::is('lg-showLogbook') || Request::is('lp-showLaporan')? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('dashboard') }}">
                             <span
                             class="nav-link-icon d-md-none d-lg-inline-block">

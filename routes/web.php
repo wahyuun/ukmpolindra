@@ -50,6 +50,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 // Profile
 Route::get('/profile',[ProfileController::class,'index'])->middleware(['auth','verified'])->name('profile');
+Route::get('/profile/all-user',[ProfileController::class,'all'])->middleware(['auth','verified'])->name('all');
+Route::get('/profile/show',[ProfileController::class,'show'])->middleware(['auth','verified'])->name('all');
 
 
 // index.php Dashboard

@@ -6,9 +6,15 @@
     <div class="page-header d-print-none">
         <div class="row align-items-center">
             <div class="col">
-                <h2 class="page-title">
+                <div class="mb-1">
+                    <ol class="breadcrumb breadcrumb-alternate" aria-label="breadcrumbs">
+                      <li class="breadcrumb-item active" aria-current="page"><a href="#">Dashboard</a></li>
+                    </ol>
+                  </div>
+                  <h2 class="page-title">
                     UNIT KEGIATAN MAHASISWA POLITEKNIK NEGERI INDRAMAYU
-                </h2>
+                  </h2>
+                </div>
             </div>
             <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
@@ -19,7 +25,6 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modal-report"
                     >
-                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon"
@@ -145,6 +150,7 @@ aria-hidden="true">
                                     <img class="img-preview img-fluid mb-3 col-sm-3 mx-auto">
                                 </div>
                             </div>
+                            {{-- toggle butotn END --}}
                             <label for="logo" class="form-label">Logo UKM
                                 <span class="link-danger">* <small class="fst-italic"> (.PNG,.JPG,.JPEG) max:5mb</small>
                                     <a class="fst-italic" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Lihat Priview</a>

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
                     'email'=>'wahyu@gmail.com',
                     'password'=>bcrypt('wahyu123'),
                     'email_verified_at'=>date('Y-m-d H:i:s'),
+                    'tlp'=>'087822913520',
                     'ukm_id'=>'1',
                     'role'=>'1',
                 ],
@@ -35,8 +36,9 @@ class DatabaseSeeder extends Seeder
                     'email'=>'hana@gmail.com',
                     'password'=>Hash::make('hana123'),
                     'email_verified_at'=>date('Y-m-d H:i:s'),
+                    'tlp'=>'085221207322',
                     'ukm_id'=>'7',
-                    'role'=>'1',
+                    'role'=>'2',
                     ]
                 ];
 

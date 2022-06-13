@@ -42,7 +42,8 @@ class LaporanController extends Controller
         $laporan = Laporan::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
         return view('dashboard.showLaporan',[
         'title' => 'Detail Laporan | ' . request('detail'),
-        'laporan'=>$laporan
+        'laporan'=>$laporan,
+        'ukm'=>$ukm
         ]);
     }
 

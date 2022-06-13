@@ -2,6 +2,21 @@
 @section('container')
 <div class="page-body">
     <div class="container-xl">
+        <div class="page-header mb-4">
+            <div class="row align-items-center mw-100">
+              <div class="col">
+                <div class="mb-1">
+                  <ol class="breadcrumb breadcrumb-alternate" aria-label="breadcrumbs">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Detail Kegiatan {{ $ukm->nama_ukm }}</a></li>
+                  </ol>
+                </div>
+                <h2 class="page-title">
+                  <span class="mx-auto">Data Kegiatan {{ $ukm->nama_ukm }}</span>
+                </h2>
+              </div>
+            </div>
+          </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-table table-responsive p-3">
@@ -86,7 +101,7 @@
                                 <td>
                                     @php
                                     $url_show = url('/act-detailKegiatan?selengkapnya='.$act->slug);
-                                    if ($ukm->status != 0) {
+                                    if ($act->ukm->status != 0) {
                                        echo '<div class="dropdown">'.
                                                 '<a class="text-muted">
                                                     <div class="col-auto">

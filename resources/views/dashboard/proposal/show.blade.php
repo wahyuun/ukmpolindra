@@ -106,6 +106,8 @@
                             </button>
                         </form>
                         @endif
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url('/ac-showProposal?detail='.$proposal->ukm->slug) }}" class="dropdown-item">Data penuh</a>
                     </div>
                 </div>
             </div>

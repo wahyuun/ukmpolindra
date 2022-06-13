@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use App\Models\Logbook;
+use App\Models\Proposal;
 use App\Models\UKM;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,8 +18,51 @@ class LogbookController extends Controller
     }
 
     public function index(){
+        //robotika
+        $ukm = UKM::firstWhere('slug','robotika-polindra');
+        $ukmId = $ukm->id;
+        $rpi = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //sebura
+        $ukm = UKM::firstWhere('slug','seni-budaya-polindra');
+        $ukmId = $ukm->id;
+        $sebura = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //kompa
+        $ukm = UKM::firstWhere('slug','komunitas-mahasiswa-pecinta-alam');
+        $ukmId = $ukm->id;
+        $kompa = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //Folafo
+        $ukm = UKM::firstWhere('slug','foreign-language-forum');
+        $ukmId = $ukm->id;
+        $folafo = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //Popi
+        $ukm = UKM::firstWhere('slug','persatuan-olahraga-polindra');
+        $ukmId = $ukm->id;
+        $popi = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //Menwa
+        $ukm = UKM::firstWhere('slug','resimen-mahasiswa');
+        $ukmId = $ukm->id;
+        $menwa = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //Formadiksi
+        $ukm = UKM::firstWhere('slug','forum-mahasiswa-bidik-misi');
+        $ukmId = $ukm->id;
+        $formadiksi = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //Kopen
+        $ukm = UKM::firstWhere('slug','kotak-pena');
+        $ukmId = $ukm->id;
+        $kopen = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->count();
+        //All
+        $all = Logbook::with(['kegiatan','ukm'])->count();
         return view('dashboard.logbook.index',[
-            'title'=>'Logbook Kegiatan'
+            'title'=>'Logbook Kegiatan',
+            'rpi'=>$rpi,
+            'sebura'=>$sebura,
+            'kompa'=>$kompa,
+            'folafo'=>$folafo,
+            'popi'=>$popi,
+            'menwa'=>$menwa,
+            'formadiksi'=>$formadiksi,
+            'kopen'=>$kopen,
+            'all'=>$all
         ]);
     }
 
@@ -42,7 +86,8 @@ class LogbookController extends Controller
         $logbook = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
         return view('dashboard.showLogbook',[
         'title' => 'Detail Logbook | ' . request('detail'),
-        'logbook'=>$logbook
+        'logbook'=>$logbook,
+        'ukm'=>$ukm
         ]);
     }
 

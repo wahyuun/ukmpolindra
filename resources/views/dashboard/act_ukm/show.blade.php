@@ -108,7 +108,7 @@
                         </form>
                         @endif
                         <div class="dropdown-divider"></div>
-                        <a href="{{ url('/dashboard/showKegiatan?detail='.$kegiatan->ukm->slug) }}" class="dropdown-item">Data penuh</a>
+                        <a href="{{ url('/act-showKegiatan?detail='.$kegiatan->ukm->slug) }}" class="dropdown-item">Data penuh</a>
                     </div>
                 </div>
             </div>
