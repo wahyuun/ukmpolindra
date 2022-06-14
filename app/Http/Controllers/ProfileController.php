@@ -32,7 +32,7 @@ class ProfileController extends Controller
     public function show()
     {
 
-        $user = User::firstWhere('name',request('user'));
+        $user = User::with(['ukm'])->firstWhere('name',request('user'));
         return view('dashboard.profile.show',[
             'title'=> 'Profile | User ' . request('user'),
             'user'=>$user,

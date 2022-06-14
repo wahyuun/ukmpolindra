@@ -6,18 +6,25 @@
         <div class="page-header d-print-none">
             <div class="row align-items-center">
                 <div class="col">
-                    <h2 class="page-title">
-                        Users
-                    </h2>
+                    <div class="mb-1">
+                        <ol class="breadcrumb breadcrumb-alternate" aria-label="breadcrumbs">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('profile') }}">Profile & Acoount</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Seluruh User</a></li>
+                        </ol>
+                    </div>
                     <div class="text-muted mt-1">{{ $count }} user</div>
                 </div>
                 <!-- Page title actions -->
                 <div class="col-auto ms-auto d-print-none">
                     <div class="d-flex">
-                        <input type="search" class="form-control d-inline-block w-9 me-3" placeholder="Search user…"/>
+                        <input type="search" class="form-control d-inline-block w-9 me-3" placeholder="Cari disini..."/>
                         <a href="#" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-                            New user
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                <path d="M16 11h6m-3 -3v6"></path>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -62,7 +69,7 @@
                             <a href="https://mail.google.com/mail/{{ strtolower($user->email) }}" class="card-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2" /><polyline points="3 7 12 13 21 7" /></svg>
                                 Email</a>
-                                <a href="{{ $user->tlp }}" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
+                                <a href="{{ $user->tlp }}" class="card-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
                                     Telepon</a>
                                 </div>

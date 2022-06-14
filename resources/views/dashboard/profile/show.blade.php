@@ -1,5 +1,55 @@
 @extends('dashboard.layouts.main')
 @section('container')
+<style>
+    #toggle_lama{
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background: url(../../../img/show.png);
+        background-size: cover;
+        cursor: pointer;
+    }
+    #toggle_lama.hide{
+        background: url(../../../img/hide.png);
+        background-size: cover;
+    }
+
+    /* .foto{
+        position: relative;
+        overflow: hidden;
+        margin-top: -20%;
+        width: 70%;
+        border: none;
+        border-radius: 0;
+        font-size: 15px;
+    } */
+    .foto input {
+        background: url('../../../../img/noimage.png');
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
+    #toggle_baru{
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background: url(../../../img/show.png);
+        background-size: cover;
+        cursor: pointer;
+    }
+    #toggle_baru.hide{
+        background: url(../../../img/hide.png);
+        background-size: cover;
+    }
+</style>
 <div class="page-body">
     <div class="container-xl">
         <div class="page-header">
@@ -7,7 +57,9 @@
                 <div class="col">
                     <div class="mb-1">
                         <ol class="breadcrumb breadcrumb-alternate" aria-label="breadcrumbs">
-                            <li class="breadcrumb-item active" aria-current="page"><a href="#">Profil <span class="fw-bold">{{ strtoupper($user->name) }}</span></a></li>
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('profile') }}">Profile & Acoount</a></li>
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('all') }}">Seluruh User</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="#"><span class="fw-bold">{{ strtoupper($user->name ? $user->name :'') }}</span></a></li>
                         </ol>
                     </div>
                 </div>
@@ -17,20 +69,21 @@
             <div class="col-md-6 mx-auto">
                 @if(empty($user->foto))
                 <span class="avatar avatar-xl mb-3 avatar-rounded d-block mx-auto"><img src="{{ asset('img/noprofil.png') }}" class="img-preview rounded-circle avatar-rounded avatar avatar-xl">
-                    <a href="">
-                        <div class="col-auto align-self-center">
-                            <div class="badge" style="width: 0px; height:45px;">
-                                <svg style="font-size: 30px; margin-left: -9px; margin-bottom:10px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <line x1="15" y1="8" x2="15.01" y2="8"></line>
-                                    <rect x="4" y="4" width="16" height="16" rx="3"></rect>
-                                    <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5"></path>
-                                    <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2"></path>
-                                </svg>
-                                <input id="foto" name="foto" type="file" class="form-control" onchange="previewImage()"/>
-                            </div>
+                    <div class="col-auto align-self-center">
+
+                        {{-- <div class="badge" style="width: 0px; height:45px; margin-bottom:-7px; margin-right:-8px;">
+                            <svg style="font-size: 30px; margin-left: -9px; margin-bottom:10px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <line x1="15" y1="8" x2="15.01" y2="8"></line>
+                                <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+                                <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5"></path>
+                                <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2"></path>
+                            </svg>
+                        </div> --}}
+                        <div>
+                            <input id="foto" name="foto" type="file" class="form-control badge foto" onchange="previewImage()"/>
                         </div>
-                    </a>
+                    </div>
                 </span>
                 @else
                 <span class="avatar avatar-xl mb-3 avatar-rounded d-block mx-auto"><img src="{{ asset('storage/'.$user->foto) }}" class="img-preview rounded-circle avatar-rounded avatar avatar-xl"> </span>
@@ -66,22 +119,38 @@
 
                             <option value="1">Kemahasiswaan</option>
                             <option value="2">BAAK</option>
-                            <option value="2">UKM</option>
+                            <option value="3">UKM</option>
                         </select>
-                        <label for="floatingSelect">Level</label>
+                        <label for="floatingSelect">Akses Aplikasi</label>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating mb-3">
                         <select name="ukm_id" class="form-select" id="floatingSelect" aria-label="Floating label select example">
                             @foreach($ukms as $ukm)
-                                @if(old('ukm_id',$user->ukm_id) == $ukm->id)
-                                <option value="{{ $ukm->id }}" selected>{{ $ukm->nama_ukm }}</option>
-                                @else
-                                <option value="{{ $ukm->id }}">{{ $ukm->nama_ukm }}</option>
-                                @endif
+                            @if(old('ukm_id',$user->ukm_id) == $ukm->id)
+                            <option value="{{ $ukm->id }}" selected>{{ $ukm->nama_ukm }}</option>
+                            @else
+                            <option value="{{ $ukm->id }}">{{ $ukm->nama_ukm }}</option>
+                            @endif
                             @endforeach
                         </select>
                         <label for="floatingSelect">Unit Kegiatan Mahasiswa</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" name="pw_lama" class="form-control" id="pw_lama" autocomplete="off">
+                        <label for="floating-password">Password Lama</label>
+                        <div id="toggle_lama" onclick="showHideLama();"></div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" value="password" name="password" class="form-control" id="pw_baru" autocomplete="off">
+                        <div id="toggle_baru" onclick="showHide();"></div>
+                        <label for="floating-password">Password Baru</label>
+                    </div>
+                    <small class="form-hint" style="margin-top: -10px">
+                        *Password minimal 5 karakter
+                    </small>
+                    <button type="submit" class="fw-bold mt-3 btn btn-primary gap-2 col-12">
+                        Update Profil
+                    </button>
                 </fieldset>
             </div>
         </div>
@@ -106,6 +175,34 @@
             imgPreview.src = oFREvent.target.result;
         }
 
+    }
+</script>
+<script type="text/javascript">
+    const password = document.getElementById('pw_lama');
+    const toggle = document.getElementById('toggle_lama');
+
+    function showHideLama(){
+        if(password.type === 'password'){
+            password.setAttribute('type', 'text');
+            toggle.classList.add('hide')
+        } else{
+            password.setAttribute('type', 'password');
+            toggle.classList.remove('hide')
+        }
+    }
+</script>
+<script type="text/javascript">
+    const password_baru = document.getElementById('pw_baru');
+    const toggle_baru = document.getElementById('toggle_baru');
+
+    function showHide(){
+        if(password_baru.type === 'password'){
+            password_baru.setAttribute('type', 'text');
+            toggle_baru.classList.add('hide')
+        } else{
+            password_baru.setAttribute('type', 'password');
+            toggle_baru.classList.remove('hide')
+        }
     }
 </script>
 @endsection

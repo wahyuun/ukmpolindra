@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div class="col-6 col-md-4 mx-auto my-auto">
+<div class="col-8 col-md-4 mx-auto my-auto">
     <div class="card">
         <div class="page-pretitle mt-3 text-end">
             <div class="dropdown" title="Status action" data-bs-toggle="tooltip" data-bs-placement="bottom">
