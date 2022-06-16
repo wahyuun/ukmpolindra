@@ -303,13 +303,16 @@ aria-hidden="true">
                                                     <a href="{{ url('/ac-showProposal?detail='.$ukm->slug) }}" class="dropdown-item">Detail Proposal</a>
                                                     <a href="{{ url('/lg-showLogbook?detail='.$ukm->slug) }}" class="dropdown-item">Detail Logbook</a>
                                                     <a href="{{ url('/lp-showLaporan?detail='.$ukm->slug) }}" class="dropdown-item">Detail Laporan</a>
-                                                    <div class="dropdown-divider"></div>
                                                     @endif
+                                                    @can('kemahasiswaan')
+                                                    <div class="dropdown-divider"></div>
+
                                                     @if($ukm->status != 0)
                                                     <a href="{{ url('/ukm/nonaktif?nonaktifukm='.$ukm->slug) }}" class="dropdown-item text-danger ukm-nonaktif-confirm">Nonakifkan</a>
                                                     @else
                                                     <a href="{{ url('/ukm/aktif?aktifukm='.$ukm->slug) }}" class="dropdown-item text-green ukm-aktif-confirm">Akifkan</a>
                                                     @endif
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>

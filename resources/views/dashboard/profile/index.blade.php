@@ -79,7 +79,7 @@
                     Telepon
                 </a>
             </div>
-            <a href="#" class="card-btn">Tampilkan</a>
+            <a href="{{ url('/profile/show?user='.auth()->user()->name) }}" class="card-btn">Tampilkan</a>
         </div>
     </div>
     @endsection

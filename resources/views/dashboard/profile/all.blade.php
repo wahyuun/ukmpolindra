@@ -48,7 +48,7 @@
                 @foreach($users as $user)
                 <div class="col-md-6 col-lg-3">
                     <div class="card">
-                        <a href="{{ url('/profile/show?user='.$user->name ?? '') }}" class="text-decoration-none">
+                        <a href="{{ url('/profile/show?user='.$user->name) }}" class="text-decoration-none">
                             <div class="card-body p-4 text-center">
                                 <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url({{ $user->foto ? asset('storage/'.$user->foto) : asset('img/noprofil.png') }})">
                                     @if($user->active_status == 1)

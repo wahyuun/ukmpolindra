@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Mail\EmailVerification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, 'id_ID');
         config(['app.locale' => 'id']);
         \Carbon\Carbon::setLocale('id');
+
+        Gate::define('kemahasiswaan', function (User $user) {
+            return $user->role == 1;
+        });
 
     }
 }
