@@ -52,6 +52,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::get('/profile',[ProfileController::class,'index'])->middleware(['auth','verified'])->name('profile');
 Route::get('/profile/all-user',[ProfileController::class,'all'])->middleware(['auth','verified'])->name('all');
 Route::get('/profile/show',[ProfileController::class,'show'])->middleware(['auth','verified'])->name('profile-show');
+Route::patch('/profile/update',[ProfileController::class,'update'])->middleware(['auth','verified'])->name('profile-update');
 
 
 // index.php Dashboard

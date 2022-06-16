@@ -23,8 +23,8 @@
     <link href="../../dist/css/tabler-vendors.min.css" rel="stylesheet" />
     <link href="../../dist/css/demo.min.css" rel="stylesheet" />
     {{-- Sweetalert2 --}}
-    <link rel="stylesheet" href="sweetalert2/sweetalert2.css">
-    <script src="sweetalert2/sweetalert2.js"></script>
+    <link rel="stylesheet" href="{{ asset('sweetalert2/sweetalert2.css') }}">
+    <script src="{{ asset('sweetalert2/sweetalert2.js') }}"></script>
     {{-- Trix Editor --}}
     <link rel="stylesheet" href="/css/trix.css">
     <script src="/js/trix.js"></script>
