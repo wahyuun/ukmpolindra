@@ -24,14 +24,4 @@ return new class extends Migration
         END
         ');
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 };

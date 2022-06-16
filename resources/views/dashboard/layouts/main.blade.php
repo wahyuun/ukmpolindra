@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ $title }}</title>
 
+    {{-- Ijabo Crop Image --}}
+    <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}">
+
     {{-- Datatables --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.css"/>
 
@@ -37,6 +40,7 @@
 
 </head>
 <body>
+
 
     <div class="page">
         {{-- Header Start --}}
@@ -1478,33 +1482,6 @@
         });
     </script>
     {{-- END auto-close --}}
-    <script>
-        // @formatter:off
-        document.addEventListener("DOMContentLoaded", function () {
-            var el;
-            window.TomSelect && (new TomSelect(el = document.getElementById('select-tags-advanced'), {
-                copyClassesToDropdown: false,
-                dropdownClass: 'dropdown-menu',
-                optionClass:'dropdown-item',
-                controlInput: '<input>',
-                render:{
-                    item: function(data,escape) {
-                        if( data.customProperties ){
-                            return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                        }
-                        return '<div>' + escape(data.text) + '</div>';
-                    },
-                    option: function(data,escape){
-                        if( data.customProperties ){
-                            return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                        }
-                        return '<div>' + escape(data.text) + '</div>';
-                    },
-                },
-            }));
-        });
-        // @formatter:on
-      </script>
 
 </body>
 </html>

@@ -70,13 +70,40 @@
         @endif
         <div class="row">
             <div class="col-md-6 mx-auto">
+                @if (Session::get('success-profile'))
+                <script>
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Foto berhasil diubah'
+                    })
+                </script>
+                @endif
+                {{-- <form action="{{ route('updateFoto') }}" method="get"> --}}
+
+                    {{-- <button type="push">kirim</button>
+                </form> --}}
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
                 <form action="{{ route('profile-update') }}" method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
-                    @if(empty($user->foto))
-                    <span class="avatar avatar-xl mb-3 avatar-rounded d-block mx-auto"><img src="{{ asset('img/noprofil.png') }}" class="img-preview rounded-circle avatar-rounded avatar avatar-xl">
+                    <span class="avatar avatar-xl mb-3 avatar-rounded d-block mx-auto"><img src="{{ $user->foto ? asset('storage/'.$user->foto) : asset('img/noprofil.png') }}" class="img-preview rounded-circle avatar-rounded avatar avatar-xl">
                         <div class="col-auto align-self-center">
-
                             {{-- <div class="badge" style="width: 0px; height:45px;  margin-bottom:-7px; margin-right:-8px;">
                                 <svg style="font-size: 30px; margin-left: -9px; margin-bottom:10px;" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -86,14 +113,10 @@
                                     <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2"></path>
                                 </svg>
                             </div> --}}
-                            <div>
-                                <input id="foto" name="foto" type="file" class="foto form-control badge bg-danger" style="background-color: transparent;" onchange="previewImage()"/>
-                            </div>
+                            <input id="foto" name="foto" type="file" class="badge" onchange="previewImage()"/>
+
                         </div>
                     </span>
-                    @else
-                    <span class="avatar avatar-xl mb-3 avatar-rounded d-block mx-auto"><img src="{{ asset('storage/'.$user->foto) }}" class="img-preview rounded-circle avatar-rounded avatar avatar-xl"> </span>
-                    @endif
                     <fieldset class="form-fieldset">
                         <h3>User Acoount Manajement</h3>
                         @if($message=Session::get('errorPassword'))
@@ -123,6 +146,7 @@
                         <input type="hidden" name="oldImage" value="{{ $user->foto }}">
                         <input type="hidden" name="oldPassword" value="{{ $user->password }}">
                         <input type="hidden" name="id" value="{{ $user->id }}">
+                        <input type="hidden" name="remember_token" value="{{ Str::random(10) }}">
 
                         <div class="form-floating mb-3">
                             <input name="email" type="email" class="form-control" id="floating-input" value="{{ old('email',$user->email) }}" autocomplete="off">
@@ -254,23 +278,5 @@
     }
 </script>
 
-{{-- crop --}}
-{{-- <script>
-    $('#foto').ijaboCropTool({
-        preview : '.foto',
-        setRatio: 7/8,
-        allowedExtensions: ['jpg', 'jpeg','png'],
-        buttonsText:['Simpan','Keluar'],
-        buttonsColor:['#30bf7d','#ee5155', -15],
-        processUrl:'{{ route("crop") }}',
-        withCSRF:['_token','{{ csrf_token() }}'],
-        onSuccess:function(message, element, status){
-            alert(message);
-        },
-        onError:function(message, element, status){
-            alert(message);
-        }
-
-    });
-</script> --}}
 @endsection
+

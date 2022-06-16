@@ -53,6 +53,7 @@ Route::get('/profile',[ProfileController::class,'index'])->middleware(['auth','v
 Route::get('/profile/all-user',[ProfileController::class,'all'])->middleware(['auth','verified'])->name('all');
 Route::get('/profile/show',[ProfileController::class,'show'])->middleware(['auth','verified'])->name('profile-show');
 Route::patch('/profile/update',[ProfileController::class,'update'])->middleware(['auth','verified'])->name('profile-update');
+// Route::post('/profile/updateFoto',[ProfileController::class,'updateFoto'])->middleware(['auth','verified'])->name('updateFoto');
 
 
 // index.php Dashboard
