@@ -108,6 +108,26 @@
             <h2 class="page-title my-4">
                 <span class="mx-auto">Tabel Logbook</span>
             </h2>
+            @if(Session::has('delete_success'))
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Logbook dihapus'
+                })
+            </script>
+            @endif
             <div class="card">
                 <div class="card-table table-responsive p-3">
                     <table class="table" id="myLogbook">

@@ -99,6 +99,8 @@ Route::get('/data-proposal',[ProposalController::class,'data_proposal'])->middle
 // Logbook
 Route::get('/log-book',[LogbookController::class,'index'])->middleware('auth')->name('logbook');
 Route::get('/lg-detailLogbook',[LogbookController::class,'show'])->middleware('auth')->name('lg-detailLogbook');
+Route::get('/lg-deleteLogbook',[LogbookController::class,'delLogbook'])->middleware(['auth','verified'])->name('delLogbook');
+// Dashboard show detail
 Route::get('/lg-showLogbook',[LogbookController::class,'swLogbook'])->middleware(['auth','verified'])->name('swLogbook');
 // Ajax DataTables Logbook
 Route::get('/data-logbook',[LogbookController::class,'data_logbook'])->middleware('auth')->name('data-logbook');

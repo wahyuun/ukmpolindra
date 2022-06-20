@@ -1237,6 +1237,28 @@
 
 
     </script>
+    {{-- Logbook --}}
+    <script>
+        $('.logbook-delete').on('click',function(event){
+            event.preventDefault();
+            const url = $(this).attr('href');
+            Swal.fire({
+                title:'Logbook akan dihapus?',
+                text: 'Data akan dihapus',
+                icon:'warning',
+                showCancelButton:true,
+                confirmButtonColor:'#F40000',
+                cancelButtonColor:'#3085d6',
+                cancelButtonText:'Batal',
+                confirmButtonText:'Ya, Hapus!'
+            }).then((result)=>{
+                if(result.value){
+                    window.location.href = url;
+
+                }
+            })
+        });
+    </script>
     {{-- UKM --}}
     <script>
         $('.ukm-nonaktif-confirm').on('click',function(event){

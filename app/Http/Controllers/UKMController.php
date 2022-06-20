@@ -67,7 +67,7 @@ class UKMController extends Controller
         }
 
             UKM::create($validatedData);
-            return redirect()->back()->withToastSuccess('UKM '.$request->nama_ukm.' Berhasil Ditambahkan!');
+            return redirect()->back()->withToastSuccess('UKM'.$request->nama_ukm.' Berhasil Ditambahkan!');
 
     }
 

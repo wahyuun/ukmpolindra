@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proposals', function (Blueprint $table) {
+        Schema::create('log_logbooks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_proposal')->unique();
-            $table->dateTime('tgl_proposal')->nullable();
-            $table->mediumText('keterangan');
-            $table->boolean('status')->default(false);
-            $table->mediumText('komentar')->nullable();
-            $table->string('file')->nullable();
+            $table->string('progress');
+            $table->dateTime('tgl_logbook')->nullable();
+            $table->mediumText('uraian');
+            $table->mediumText('hasil');
+            $table->mediumText('kendala');
             $table->foreignId('kegiatan_id');
             $table->foreignId('ukm_id');
             $table->timestamps();
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposals');
+        Schema::dropIfExists('log_logbooks');
     }
 };

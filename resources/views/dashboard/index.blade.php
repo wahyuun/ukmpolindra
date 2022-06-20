@@ -272,7 +272,7 @@ aria-hidden="true">
                 <div class="card card-sm">
                     @if($ukm->logo)
                     <a href="{{ url('ukm?deskripsi='.$ukm->slug ?? "") }}" class="d-block">
-                        <img height="128" class="mx-auto d-block mt-3" src="{{ asset('storage/'.$ukm->logo ?? "") }}" class="card-img-top" alt="{{ $ukm->nama_ukm ?? "" }}">
+                        <img style="width: 128px; height:128px;" class="mx-auto d-block mt-3 rounded-circle" src="{{ asset('storage/'.$ukm->logo ?? "") }}" alt="{{ $ukm->nama_ukm ?? "" }}">
                     </a>
                     @else
                     <a href="/dashboard" class="d-block">

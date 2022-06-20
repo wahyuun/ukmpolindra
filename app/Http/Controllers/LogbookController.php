@@ -79,10 +79,25 @@ class LogbookController extends Controller
         ]);
     }
 
+    public function delLogbook()
+    {
+
+
+        if (request('delete')) {
+            // cara mengembalikan id yg telah di hash
+            $url_id = $this->Hashids->decode(request('delete'))[0];
+        }
+        Logbook::destroy($url_id);
+        return redirect()->back()->with('delete_success','message');
+    }
+
+
+    // Dashboard data logbook
     public function swLogbook()
     {
         $ukm = UKM::firstWhere('slug',request('detail'));
         $ukmId=$ukm->id;
+
         $logbook = Logbook::with(['kegiatan','ukm'])->where('ukm_id',$ukmId)->get();
         return view('dashboard.showLogbook',[
         'title' => 'Detail Logbook | ' . request('detail'),
@@ -90,6 +105,8 @@ class LogbookController extends Controller
         'ukm'=>$ukm
         ]);
     }
+
+
 
     public function data_logbook(){
         $activity = Logbook::select([
@@ -108,6 +125,7 @@ class LogbookController extends Controller
             })
             ->addColumn('action', function($data){
                 $url_show = url('/lg-detailLogbook?detail='.$data->id);
+                $url_delete = url('/lg-deleteLogbook?delete='.$data->id);
                 $varUKM = $data->ukm->status;
                 if ($varUKM != 0) {
                     '<div class="dropdown">'.
@@ -121,7 +139,7 @@ class LogbookController extends Controller
                     <div class="dropdown-menu dropdown-menu-end">
                     <a href="'.$url_show.'" class="dropdown-item">Detail</a>
                     <a href="#" class="dropdown-item">Export PDF</a>
-                    <a href="" class="dropdown-item text-danger">Delete</a>
+                    <a href="'.$url_delete.'" class="dropdown-item text-danger logbook-delete">Delete</a>
                     </div>
                     </div>
                     </div>
