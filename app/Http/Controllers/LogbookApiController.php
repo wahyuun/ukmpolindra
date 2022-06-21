@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class LogbookApiController extends Controller
 {
+    public function __construct(){
+        $this->Hashids = new \Hashids\Hashids( env('MY_SECRET_SALT_KEY','MySecretSalt') );
+    }
+
     public function index()
     {
-        $logbook = Logbook::all();
+        $logbook = Logbook::with(['kegiatan','ukm'])->get();
         $data = array();
 
         foreach ($logbook as $item) {
@@ -40,7 +44,9 @@ class LogbookApiController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $logbook = Logbook::find($id);
+        // cara mengembalikan id yg telah di hash
+            $url_id = $this->Hashids->decode($id)[0];
+        $logbook = Logbook::find($url_id);
         $logbook->update($request->all());
         return response()->json(['message'=> 'success','data'=>$logbook]);
     }

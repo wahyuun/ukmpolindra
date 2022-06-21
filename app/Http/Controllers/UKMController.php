@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\UKM;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Failed;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 use UniSharp\LaravelFilemanager\Controllers\Controller;
 
 
@@ -19,9 +20,16 @@ class UKMController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $ukms = UKM::get();
+        $title = 'dashboard';
+
+        if ($request->has('view_deleted')) {
+            $ukms=$ukms->onlyTrashed();
+            $title = 'Riwayat';
+        }
+        return view('dashboard.index',compact('ukms','title'));
     }
 
     /**
@@ -142,20 +150,26 @@ class UKMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UKM $ukm)
+    public function destroy()
     {
-        if ($ukm->logo) {
-            Storage::delete($ukm->logo);
+        if (request('deletedukm')) {
+            $Urlnonaktif = UKM::firstWhere('slug',request('deletedukm'));
         }
-        if ($ukm->file) {
-            Storage::delete($ukm->file);
+
+        if ($Urlnonaktif->logo) {
+            Storage::delete($Urlnonaktif->logo);
+        }
+        if ($Urlnonaktif->file) {
+            Storage::delete($Urlnonaktif->file);
         }
 
             Storage::delete('photos/1/');
 
-        UKM::destroy($ukm->id);
+        UKM::destroy($Urlnonaktif->id);
         return redirect()->back()->with('UKM-delete','deleted');
     }
+
+
     public function checkSlug(Request $request)
     {
         $slug = SlugService::createSlug(UKM::class, 'slug', $request->nama_ukm);

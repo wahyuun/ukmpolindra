@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ProposalApiController extends Controller
 {
+    public function __construct(){
+        $this->Hashids = new \Hashids\Hashids( env('MY_SECRET_SALT_KEY','MySecretSalt') );
+    }
+
     public function index()
     {
         $Proposal = Proposal::all();
@@ -41,9 +45,11 @@ class ProposalApiController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $Proposal = Proposal::find($id);
-        $Proposal->update($request->all());
-        return response()->json(['message'=> 'success','data'=>$Proposal]);
+        // cara mengembalikan id yg telah di hash
+        $url_id = $this->Hashids->decode($id)[0];
+        $proposal = Proposal::find($url_id);
+        $proposal->update($request->all());
+        return response()->json(['message'=> 'success','data'=>$proposal]);
     }
     public function destroy($id)
     {

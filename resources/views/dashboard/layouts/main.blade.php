@@ -1261,6 +1261,27 @@
     </script>
     {{-- UKM --}}
     <script>
+        $('.ukm-deleted-confirm').on('click',function(event){
+            event.preventDefault();
+            const url = $(this).attr('href');
+            Swal.fire({
+                title:'UKM akan dihapus?',
+                text: 'Seluruh data dari UKM yang dipilih akan terhapus!',
+                icon:'warning',
+                showCancelButton:true,
+                confirmButtonColor:'#F40000',
+                cancelButtonColor:'#3085d6',
+                cancelButtonText:'Batal',
+                confirmButtonText:'Ya, Hapus!'
+            }).then((result)=>{
+                if(result.value){
+                    window.location.href = url;
+
+                }
+            })
+        });
+    </script>
+    <script>
         $('.ukm-nonaktif-confirm').on('click',function(event){
             event.preventDefault();
             const url = $(this).attr('href');

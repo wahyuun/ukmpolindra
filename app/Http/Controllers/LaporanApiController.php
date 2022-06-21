@@ -7,6 +7,9 @@ use App\Models\Laporan;
 
 class LaporanApiController extends Controller
 {
+    public function __construct(){
+        $this->Hashids = new \Hashids\Hashids( env('MY_SECRET_SALT_KEY','MySecretSalt') );
+    }
     public function index()
     {
         $laporan = Laporan::all();
@@ -20,7 +23,8 @@ class LaporanApiController extends Controller
                 "keterangan" => $item->keterangan,
                 "file" => $item->file,
                 "ukm_id"=>$item->ukm_id,
-                "kegiatan_id"=>$item->ukm_id,
+                "kegiatan_id"=>$item->kegiatan_id,
+                "kegiatan_id"=>$item->kegiatan_id,
                 "nama_kegiatan" => $item->kegiatan->nama_kegiatan,
                 "nama_ukm" => $item->ukm->nama_ukm,
             ];
@@ -39,7 +43,9 @@ class LaporanApiController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $laporan = Laporan::find($id);
+        // cara mengembalikan id yg telah di hash
+        $url_id = $this->Hashids->decode($id)[0];
+        $laporan = Laporan  ::find($url_id);
         $laporan->update($request->all());
         return response()->json(['message'=> 'success','data'=>$laporan]);
     }

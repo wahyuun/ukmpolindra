@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthenticationLogController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KegiatanApiController;
 use App\Models\UKM;
 use App\Models\User;
@@ -56,13 +55,11 @@ Route::patch('/profile/update',[ProfileController::class,'update'])->middleware(
 // Route::post('/profile/updateFoto',[ProfileController::class,'updateFoto'])->middleware(['auth','verified'])->name('updateFoto');
 
 
-// index.php Dashboard
-Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth','verified'])->name('dashboard');
-
-
 Route::resource('/dashboard/ukm',UKMController::class)->middleware('auth');
+Route::get('/dashboard',[UKMController::class,'index'])->middleware('auth')->name('dashboard');
 Route::get('/ukm/aktif',[UKMController::class,'updateAktif'])->middleware('auth')->name('ukm-aktif');
 Route::get('/ukm/nonaktif',[UKMController::class,'updateNonaktif'])->middleware('auth')->name('ukm-nonaktif');
+Route::get('/ukm/deleted',[UKMController::class,'destroy'])->middleware('auth')->name('ukm-deleted');
 Route::get('/ukm',[UKMController::class,'show'])->middleware('auth')->name('desc-ukm');
 // Membuat route Slug menambahkan UKM
 Route::get('/dashboard/checkSlug',[UKMController::class,'checkSlug'])->middleware('auth');

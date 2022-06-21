@@ -45,16 +45,28 @@
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                Tambah UKM
+
             </a>
-            <a
+            {{-- Riwayat --}}
+            <a href="{{ route('dashboard',['view_deleted' => 'DeletedRecords']) }}" class="btn btn-outline-success d-none d-sm-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rotate-clockwise-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5"></path>
+                    <line x1="5.63" y1="7.16" x2="5.63" y2="7.17"></line>
+                    <line x1="4.06" y1="11" x2="4.06" y2="11.01"></line>
+                    <line x1="4.63" y1="15.1" x2="4.63" y2="15.11"></line>
+                    <line x1="7.16" y1="18.37" x2="7.16" y2="18.38"></line>
+                    <line x1="11" y1="19.94" x2="11" y2="19.95"></line>
+                 </svg>
+
+            </a>
+            {{-- <a
             href="#"
             class="btn btn-primary d-sm-none btn-icon"
             data-bs-toggle="modal"
             data-bs-target="#modal-report"
             aria-label="Create new report"
             >
-            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg
             xmlns="http://www.w3.org/2000/svg"
             class="icon"
@@ -75,7 +87,8 @@
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
-    </a>
+        aksdjhasdb
+    </a> --}}
 </div>
 </div>
 {{-- Modal Start --}}
@@ -228,6 +241,26 @@ aria-hidden="true">
     <div class="container-xl">
         <div class="row row-cards">
             @foreach ($ukms as $ukm)
+            @if(Session::has('UKM-delete'))
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'UKM berhasil dihapus!'
+                })
+            </script>
+            @endif
             @if(Session::has('UKM-nonaktif'))
             <script>
                 const Toast = Swal.mixin({
@@ -309,6 +342,7 @@ aria-hidden="true">
 
                                                     @if($ukm->status != 0)
                                                     <a href="{{ url('/ukm/nonaktif?nonaktifukm='.$ukm->slug) }}" class="dropdown-item text-danger ukm-nonaktif-confirm">Nonakifkan</a>
+                                                    <a href="{{ url('/ukm/deleted?deletedukm='.$ukm->slug) }}" class="dropdown-item text-danger ukm-deleted-confirm">Hapus UKM</a>
                                                     @else
                                                     <a href="{{ url('/ukm/aktif?aktifukm='.$ukm->slug) }}" class="dropdown-item text-green ukm-aktif-confirm">Akifkan</a>
                                                     @endif
